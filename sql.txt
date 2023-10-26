@@ -3,9 +3,29 @@ SELECT with JOIN practice:
 Join the OrderDetails and Products tables, to show a report where the columns are OrderID, ProductName, and Quantity.
 Paste the SQL statement you used below.
 
+-- I will see all orders even with products that no more in Products table
+SELECT od.OrderID, p.ProductName, od.Quantity FROM OrderDetails AS od 
+    LEFT OUTER JOIN Products AS p ON od.ProductID = p.ProductID;
+
+-- This query will show me only existing details in both tables (without null in any columns)
+SELECT od.OrderID, p.ProductName, od.Quantity FROM OrderDetails AS od 
+    INNER JOIN Products AS p ON od.ProductID = p.ProductID;
 
 Join the Orders, OrderDetails, and Employees tables to return a report with with the EmployeeName, ProductID, and Quantity.
 Paste the SQL statement you used below.  Hint: EmployeeName is not a column in the Employee table, but you can generate a
 report with EmployeeName by starting your SQL this way: SELECT (Employees.FirstName || " " || Employees.LastName) AS EmployeeName,
 
+-- same here this query will show me all Employees even those who didn't sell anything like ADAM WEST who is, according Notes
+--from Employee table is "An old chum"
+SELECT (Employees.FirstName || " " || Employees.LastName) AS EmployeeName, OrderDetails.ProductID, OrderDetails.Quantity FROM Employees 
+    LEFT OUTER JOIN Orders ON Employees.EmployeeID = Orders.EmployeeID 
+    LEFT OUTER JOIN OrderDetails ON Orders.OrderID = OrderDetails.OrderID;
+
+-- This query will show me employee with active selling
+
+SELECT (Employees.FirstName || " " || Employees.LastName) AS EmployeeName, OrderDetails.ProductID, OrderDetails.Quantity FROM Employees 
+    INNER JOIN Orders ON Employees.EmployeeID = Orders.EmployeeID 
+    LEFT OUTER JOIN OrderDetails ON Orders.OrderID = OrderDetails.OrderID;
+
+ 
 
